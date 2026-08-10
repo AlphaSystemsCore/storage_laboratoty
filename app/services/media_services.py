@@ -1,7 +1,8 @@
 from fastapi import UploadFile
 import magic
 from uuid import uuid4
-from hashlib import sha256
+import hashlib
+
 
 from app.exceptions.media_exceptions import FileSizeTooLarge, MimeTypeNotAllowedError
 async def validate_file_size(file: UploadFile):
@@ -65,12 +66,12 @@ def create_file_name():
     """creates and returns a unique and url safe file names, I have resided for uuid for robustness"""
     return uuid4()
 
-def create_file_checksum(file):
+async def create_file_checksum(file: UploadFile):
     """
     hashed the file, giving them digital fingerprints, this will help me to, 
     detect duplicates, debug, and audit trails, deduplication, and detect a change in a file...
     """
-    sha256 = sha256()
+    sha256 = hashlib.sha256()
     while chunk := await file.read(1024 * 1024):
         sha256.update(chunk)
 
@@ -84,3 +85,5 @@ async def file_service_assembler(file: UploadFile):
     """assembles all the functions at once """
     await validate_file_size(file)
     await validate_MIME_type(file)
+    print(await create_file_checksum(file))
+    
