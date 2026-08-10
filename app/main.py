@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 
-from app.routers.upload_router import uploads_router
+from app.routers.media_routers import media_router
 
 app = FastAPI()
-app.include_router(uploads_router)
+app.include_router(media_router)
