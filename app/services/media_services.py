@@ -1,4 +1,5 @@
 from fastapi import UploadFile
+import magic
 
 from app.exceptions.media_exceptions import FileSizeTooLarge
 
@@ -20,13 +21,28 @@ async def validate_file_size(file: UploadFile):
         total_size += len(chunk)
         if total_size > MAX_FILE_SIZE:
             raise FileSizeTooLarge("The file size is too LARGE.")
+    
+    await file.seek(0)
 
 
-def validate_MIME_type():
+async def validate_MIME_type(file: UploadFile):
     """
-    checks if the MIME type is allowed by the application
+    checks if the MIME type of the file for now, later I will make a list of allowed MIME type to validate from
     """
-    pass
+    head_bytes = await file.read(2048)
+
+    await file.seek(0)
+
+    description_detector = magic.Magic()
+    description = description_detector.from_buffer(head_bytes)
+    print(description)
+
+    mime_detector = magic.Magic(mime=True)
+    mime_type = mime_detector.from_buffer(head_bytes)
+    print(mime_type)
+    
+    test = magic.Magic()
+
 
 def validate_file_naive():
     """checks the sent file type and extension"""
@@ -35,3 +51,4 @@ def validate_file_naive():
 async def file_service_assembler(file: UploadFile):
     """assembles all the functions at once """
     await validate_file_size(file)
+    await validate_MIME_type(file)
