@@ -1,9 +1,13 @@
 from pydantic import BaseModel
 from uuid import UUID
 from datetime import datetime
+from fastapi import UploadFile
 
+class UploadsInUser(BaseModel):
+    file:UploadFile
+    description: str | None = None
 
-class Uploads(BaseModel):
+class UploadsIn(UploadsInUser):
     file_id: UUID
     file_name: str
     description: str
@@ -12,5 +16,5 @@ class Uploads(BaseModel):
     status: str
     content_type: str
     extension: str
-    time_created: datatime
+    time_created: datetime
     
