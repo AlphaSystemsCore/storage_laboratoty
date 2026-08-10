@@ -29,26 +29,29 @@ async def validate_MIME_type(file: UploadFile):
     """
     checks if the MIME type of the file for now, later I will make a list of allowed MIME type to validate from
     """
+    ALLOWED_MIME_TYPES ={
+        "image/jpeg":".jpg",
+        "image/png":".png",
+        "image/webp":".webp",
+        "application/pdf":".pdf",
+    }
+
     head_bytes = await file.read(2048)
 
     await file.seek(0)
 
+    # this one will detect the descriptor 
     description_detector = magic.Magic()
     description = description_detector.from_buffer(head_bytes)
     print(description)
 
+    # this where I detect the mime type of a file 
     mime_detector = magic.Magic(mime=True)
     mime_type = mime_detector.from_buffer(head_bytes)
-    print(mime_type)
     
-    test = magic.Magic()
-    file_descriptor = test.from_buffer(head_bytes)
-    print(file_descriptor)
-
-    test_2 = magic.Magic(mime=True)
-    file_descriptor_2 = test_2.from_buffer(head_bytes)
-    print(file_descriptor_2)
-
+    if mime_type not in ALLOWED_MIME_TYPES.keys():
+        raise MimeTypeNotAllowedError(f"This mime type not allowed.[You submitted this:{mime_type}]; Allowed MIME types are: {ALLOWED_MIME_TYPES.keys()}")
+    
 
 def validate_file_naive():
     """checks the sent file type and extension"""
