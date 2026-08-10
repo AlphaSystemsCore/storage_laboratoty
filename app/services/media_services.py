@@ -42,6 +42,12 @@ async def validate_MIME_type(file: UploadFile):
     print(mime_type)
     
     test = magic.Magic()
+    file_descriptor = test.from_buffer(head_bytes)
+    print(file_descriptor)
+
+    test_2 = magic.Magic(mime=True)
+    file_descriptor_2 = test_2.from_buffer(head_bytes)
+    print(file_descriptor_2)
 
 
 def validate_file_naive():
