@@ -6,11 +6,3 @@ uploads_router = APIRouter(tags=["Uploads"])
 
 @uploads_router.post("/uploads/")
 async def upload_file(file: UploadFile):
-    metadata ={
-        "file_size": file.size,
-        "filename": file.filename,
-        "content_type": file.content_type,
-    }
-    return metadata
-
-
