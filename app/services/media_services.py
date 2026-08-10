@@ -1,5 +1,6 @@
 from fastapi import UploadFile
 import magic
+from uuid import uuid4
 
 from app.exceptions.media_exceptions import FileSizeTooLarge, MimeTypeNotAllowedError
 async def validate_file_size(file: UploadFile):
@@ -57,6 +58,11 @@ async def validate_MIME_type(file: UploadFile):
 def validate_file_naive():
     """checks the sent file type and extension"""
     pass
+
+
+def create_file_name():
+    """creates and returns a unique and url safe file names, I have resided for uuid for robustness"""
+    return uuid4()
 
 async def file_service_assembler(file: UploadFile):
     """assembles all the functions at once """
