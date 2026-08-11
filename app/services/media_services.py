@@ -57,11 +57,6 @@ async def validate_MIME_type(file: UploadFile):
 
 
 
-def validate_file_naive():
-    """checks the sent file type and extension"""
-    pass
-
-
 def create_file_name():
     """creates and returns a unique and url safe file names, I have resided for uuid for robustness"""
     return uuid4()
@@ -74,15 +69,14 @@ async def create_file_checksum(file: UploadFile):
     sha256 = hashlib.sha256()
     while chunk := await file.read(1024 * 1024):
         sha256.update(chunk)
-
+    await file.seek(0)
     # returning digest in hexadigit format
     return sha256.hexdigest()
 
 
-
-
 async def file_service_assembler(file: UploadFile):
     """assembles all the functions at once """
+    """this are my tests during development to see how things run"""
     await validate_file_size(file)
     await validate_MIME_type(file)
     print(await create_file_checksum(file))
