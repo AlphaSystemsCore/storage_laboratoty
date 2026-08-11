@@ -5,4 +5,7 @@ This is a file storage engine, the purpose of this project is to store files. Al
 NOTE:
 under construction
 
+file is a persistent data identified by a name in a filesystem
+
+
                             ©️ALPHASYSTEMSCORE

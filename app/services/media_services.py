@@ -10,14 +10,6 @@ async def validate_file_size(file: UploadFile):
     check the file size if it is below the MAX_FILE_SIZE
     """
     MAX_FILE_SIZE = 50 * 1024 *1024
-    
-    ALLOWED_FILE_TYPES ={
-        "image/jpeg":".jpg",
-        "image/png":".png",
-        "image/webp":".webp",
-        "application/pdf":".pdf",
-    }
-
     total_size = 0
     while chunk := await file.read(1024 *1024):
         total_size += len(chunk)
@@ -25,6 +17,7 @@ async def validate_file_size(file: UploadFile):
             raise FileSizeTooLarge("The file size is too LARGE.")
     
     await file.seek(0)
+    return {"size":"valid"}
 
 
 async def validate_MIME_type(file: UploadFile):
@@ -77,7 +70,11 @@ async def create_file_checksum(file: UploadFile):
 async def file_service_assembler(file: UploadFile):
     """assembles all the functions at once """
     """this are my tests during development to see how things run"""
-    await validate_file_size(file)
-    await validate_MIME_type(file)
+    print(await validate_file_size(file))
+    print(await validate_MIME_type(file))
     print(await create_file_checksum(file))
     
+
+async def save_metadata():
+    """collects all file metadata, and save it """
+    pass
