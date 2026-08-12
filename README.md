@@ -2,6 +2,7 @@
 Description:
     This is a file storage engine, the purpose of this project is to store files. Allow easy retrieve, deletion, modification and travesal later.
 
+File: is a persistent data identified by a name in a filesystem
 
 Allowed file size: 50MBs.
 
@@ -11,13 +12,14 @@ Allowed content types or MIME types: text/plain
                                      video/x-matroska
 
 How I Created the MIME type list:
-I used lib-magic which help me to identify the file types by, passing a file and printing its mime type. Then isolation the mime type in the dictionary ALLOWED_MIME_TYPES
+I used lib-magic which helps me to identify the mime types by, passing a file and printing its mime type. Then isolating the mime type in the dictionary ALLOWED_MIME_TYPES.
+
  
 
 
-File - is a persistent data identified by a name in a filesystem
 
-The workflow of the system is using:
+
+The compressed workflow of the system is using:
 
     user uploads file 
             ^
@@ -34,7 +36,7 @@ The workflow of the system is using:
     check the size
             ^
             |
-    collect metadata
+    collect metadata, generate checksums
             ^
             |
     write the file to the disk and save metadata to db
