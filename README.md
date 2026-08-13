@@ -53,7 +53,8 @@ File size validation, checksum and writing to disk:
         Size validation:
                 Maximum size have been set to, 50mbs.
                 File is read in chunks, as size is measured alongside.
-                When the total chunks size surpasses the allowed file 
+                When the total chunks size surpasses the allowed file, the file is rejected
+                
         
 
 
