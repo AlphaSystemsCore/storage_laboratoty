@@ -20,6 +20,7 @@ async def validate_file(file: UploadFile):
     await file.seek(0)
     mime_type = Magic(mime=True).from_buffer(head_bytes)
     extension = ALLOWED_MIME_TYPE.get(mime_type)
+    old_filename = file.filename()
     sha512 = hashlib.sha512()
 
     if not ALLOWED_MIME_TYPE.get(mime_type):
@@ -30,8 +31,8 @@ async def validate_file(file: UploadFile):
     MAX_SIZE = 1024 * 1024 * 50
     STORAGE_DIR  = Path("uploads")
     STORAGE_DIR.mkdir(exist_ok=True)
-    filename = f"{uuid4()}{extension}"
-    print(filename)
+    unique_filename = f"{uuid4()}{extension}"
+    new_filename = STORAGE_DIR / unique_filename    
     
     
     while chunk := await file.read():
@@ -39,8 +40,12 @@ async def validate_file(file: UploadFile):
         if MAX_SIZE <= len(chunk):
             # to add custom exception later
             raise ValueError(F"File size is too big; Your presented file {file.size/(1024 * 1024):.2f} MBs. ;[Expected file size is {MAX_SIZE/(1024 *1024)} MBs.]")
-
         sha512.update(chunk)
+        with open(new_filename, "wb") as f:
+            f.write(chunk)
+    f.seek(0)
+
+
 
     
     checksum = sha512.hexdigest()
