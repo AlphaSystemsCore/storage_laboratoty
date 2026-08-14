@@ -20,7 +20,7 @@ async def validate_file(file: UploadFile):
     await file.seek(0)
     mime_type = Magic(mime=True).from_buffer(head_bytes)
     extension = ALLOWED_MIME_TYPE.get(mime_type)
-    old_filename = file.filename()
+    old_filename = file.filename
     sha512 = hashlib.sha512()
 
     if not ALLOWED_MIME_TYPE.get(mime_type):
@@ -43,7 +43,7 @@ async def validate_file(file: UploadFile):
         sha512.update(chunk)
         with open(new_filename, "wb") as f:
             f.write(chunk)
-    f.seek(0)
+    await file.seek(0)
 
 
 
