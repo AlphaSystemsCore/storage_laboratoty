@@ -1,10 +1,18 @@
                                             FILE STORAGE ENGINE
 Description:
-    This is a file storage engine, the purpose of this project is to store files. Allow easy retrieve, deletion, modification and travesal later.
+        File storage engine, upload and save files.
 
-File: is a persistent data identified by a name in a filesystem
+Purpose:
+        Upload, store, locate, read, write, delete, update, rename and manage file as a whole.
+   
+File: 
+        Is a persistent data identified by a name in a filesystem.(My own thought!)
 
-Allowed file size: 50MBs.
+Filesystem:
+        Rules and datastructure that organizes persistent storage into directory or files, allowing the OS to locate, read, write, rename, delete and manage filesystem objects.(My own thought!)
+
+File size Restriction:
+        Allowed file size: 50MBs.
 
 Allowed content types or MIME types: text/plain
                                      application/pdf
