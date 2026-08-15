@@ -20,6 +20,8 @@ I used lib-magic which helps me to identify the mime types by, passing a file an
 
 
 The compressed workflow of the system is using:
+The arrow represents the dependants.
+Which step comes first.
 
     user uploads file 
             ^
