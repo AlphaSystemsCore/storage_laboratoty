@@ -49,7 +49,7 @@ async def validate_file(file: UploadFile):
     except Exception as e:
         if filename.exists():
             filename.unlink()
-            print(f"{new_filename} cleaned up!")
+            print(f"{filename} cleaned up!")
             print(old_filename)
             print("Error: ", e)
         raise e
