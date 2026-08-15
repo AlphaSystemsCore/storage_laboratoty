@@ -5,8 +5,8 @@ import magic
 from uuid import uuid4
 
 
-
 from app.exceptions.media_exceptions import FileSizeTooLargeError, MimeTypeNotAllowedError
+
 async def validate_file(file: UploadFile):
     ALLOWED_MIME_TYPES ={
         "text/plain":".txt",

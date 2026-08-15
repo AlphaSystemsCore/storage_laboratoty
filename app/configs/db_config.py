@@ -1,0 +1,16 @@
+from configparser import ConfigParser
+
+def load_database(filename="database.ini", section="postgresql"):
+    parser = ConfigParser()
+    parser.read(filename)
+
+    config = {}
+
+    if parser.has_section(section):
+        params = parser.items(section)
+        for param in params:
+            configs[param[0]] = param[1]
+    
+    return config
+        
+    
