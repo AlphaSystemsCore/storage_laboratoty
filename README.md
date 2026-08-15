@@ -8,7 +8,7 @@ Full Description:
 
 
 Purpose:
-        Upload, store, locate, read, write, delete, update, rename and manage file as a whole.
+        Upload, store, locate, read, write, delete, update, rename and manage file as a whole remotely.
    
 File: 
         Is a persistent data identified by a name in a filesystem.(My own thought!)
