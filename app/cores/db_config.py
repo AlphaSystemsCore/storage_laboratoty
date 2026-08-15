@@ -12,8 +12,10 @@ def load_db(filename="database.ini", section="postgresql"):
     if parser.has_section(section):
         params = parser.items(section)
         for param in params:
-            configs[param[0]] = param[1]
+            config[param[0]] = param[1]
     
     return config
         
-    
+
+if __name__ == "__main__":
+    print(load_db())
