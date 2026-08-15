@@ -3,4 +3,8 @@ uploads
 __pycache__
 .env
 test.bin
-app/uploadsapp/uploads/zoom_meet
+app/uploads
+
+zoom_meet
+uploads
+database.ini
