@@ -1,6 +1,11 @@
                                             FILE STORAGE ENGINE
-Description:
+Description(shrinked):
         File storage engine, upload and save files.
+
+Full Description:
+        User uploads file, after the app has finished streaming the file. It is presented in the backend as file-like object. I check the mime-type by generating the file's mime-type. Checking the file's by using the mime-type to get the extension. Extensions are stored as values in a key-value (mime-type - extension) where, the key is the mime-type while the value is the latter. So I try to retrieve the extension, from the k-v pair. If I get the extension that means the, mime-type is valid. Else the opposite. If valid, I go ahead to size validation, checksum and writing to the disk. File is read in chunks, while I keep read of total read bytes.If the total bytes are greater than the maximum allowed file size, an error is raise and the partially broken written bytes are erased automatically. Else the program continues, checksum is generated simulteneously. As the chunk are validated, and written onto the disk. The rest are now collection of metadata. This is the first part of the system. File storage and metadata storage.
+
+
 
 Purpose:
         Upload, store, locate, read, write, delete, update, rename and manage file as a whole.
@@ -20,13 +25,8 @@ Allowed content types or MIME types(only for building and testing):
         image/png
         video/x-matroska
 
-How I Created the MIME type list:
-I used lib-magic which helps me to identify the mime types by, passing a file and printing its mime type. Then isolating the mime type in the dictionary ALLOWED_MIME_TYPES.
-
- 
-
-
-
+How I generated the MIME types:
+        Used lib magic, by passing in file-like object and getting its MIME type.
 
 The compressed workflow of the system is using:
 The arrow represents the dependants.
