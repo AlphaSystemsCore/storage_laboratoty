@@ -21,15 +21,43 @@ File size Restriction:
         Allowed file size: 50MBs.
 
 Allowed content types or MIME types(only for building and testing): 
-        text/plain
-        application/pdf
-        image/png
+        text/plain, 
+        application/pdf, 
+        image/png, 
         video/x-matroska
 
 How I generated the MIME types:
         Used lib magic, by passing in file-like object and getting its MIME type.
 
-                        compressed workflow of the system 
+Metadata stored in the database:
+I only store metadata that; to track file's identy, its location, and its relationship to users/ owners.
+metadata to be collected:
+
+                owner_id
+
+                generated_filename
+
+                original_filename
+
+                Path
+
+                checksum
+
+                mime_type
+
+                size
+
+                status pending eg. uploaded, failed, deleted
+
+                created_at
+
+                update_at
+
+                deleted_at
+
+
+
+                        Compressed Workflow Of The System 
 The arrow represents the dependants.
 Which step comes first.
 
@@ -57,6 +85,7 @@ Which step comes first.
                         ultimately send the client confirmation
 
 Each process depends on the other one, the second depends on the first, and ...
+
 
 File size validation, checksum and writing to disk:
         Size validation:

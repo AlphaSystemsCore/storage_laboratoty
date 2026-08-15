@@ -58,16 +58,7 @@ async def validate_file(file: UploadFile):
 
         return sha512.hexdigest()
 
-    # metadata to be collected:
-    # new_filename
-    # old_filename
-    # Path
-    # checksum
-    # mime_type
-    # size
-    # created_at
-    # update_at
-
+  
 
 
    
