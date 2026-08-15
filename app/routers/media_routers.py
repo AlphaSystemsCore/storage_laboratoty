@@ -17,8 +17,12 @@ async def upload_file(file: UploadFile = File()):
     return {"size":"valid"}
 
 from pathlib import Path
-@media_router.get("/medias")
+@media_router.get("/medias/v1")
 async def read_file():
+    """
+    not generally streaming, records everything into memory before rendering to the clien
+    I think this is the flaw of this design
+    """
     STORAGE_DIR = Path("uploads")
     file_path = STORAGE_DIR / "The-Linux-Command-Line-Book-5th-Edition.pdf"
     def file_iterator(chunk_size= 1024 * 1024 * 10):
