@@ -1,5 +1,6 @@
 from fastapi import APIRouter, UploadFile, HTTPException, status, File
 from starlette.responses import Response 
+from pathlib import Path
 
 from app.services.media_services import validate_file
 from app.exceptions.media_exceptions import MediaExceptions
@@ -16,22 +17,22 @@ async def upload_file(file: UploadFile = File()):
         )
     return {"size":"valid"}
 
-from pathlib import Path
-@media_router.get("/medias/v1")
-async def read_file():
-    """
-    not generally streaming, records everything into memory before rendering to the clien
-    I think this is the flaw of this design
-    """
-    STORAGE_DIR = Path("uploads")
-    file_path = STORAGE_DIR / "The-Linux-Command-Line-Book-5th-Edition.pdf"
-    def file_iterator(chunk_size= 1024 * 1024 * 10):
-        with open(file_path,  "rb") as f:
-            while chunk := f.read(chunk_size):
-                yield chunk
 
-    return Response(
-        content=b"".join(file_iterator()),
-        media_type="application/octet-stream",
-        headers={"Content-Disposition":f'attachment; filename="{"djfk"}"'}
-    )
+# @media_router.get("/medias/v1")
+# async def read_file():
+#     """
+#     not generally streaming, records everything into memory before rendering to the clien
+#     I think this is the flaw of this design
+#     """
+#     STORAGE_DIR = Path("uploads")
+#     file_path = STORAGE_DIR / "The-Linux-Command-Line-Book-5th-Edition.pdf"
+#     def file_iterator(chunk_size= 1024 * 1024 * 10):
+#         with open(file_path,  "rb") as f:
+#             while chunk := f.read(chunk_size):
+#                 yield chunk
+
+#     return Response(
+#         content=b"".join(file_iterator()),
+#         media_type="application/octet-stream",
+#         headers={"Content-Disposition":f'inline'}
+#     )
