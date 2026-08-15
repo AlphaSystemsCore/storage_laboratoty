@@ -29,37 +29,34 @@ Allowed content types or MIME types(only for building and testing):
 How I generated the MIME types:
         Used lib magic, by passing in file-like object and getting its MIME type.
 
-The compressed workflow of the system is using:
+                        compressed workflow of the system 
 The arrow represents the dependants.
 Which step comes first.
 
-    user uploads file 
-            ^
-            |
-    my_api_read_byte
-            ^
-            |
-    create a file-like object
-            ^
-            |
-    verify content type
-            ^
-            |
-    check the size
-            ^
-            |
-    collect metadata, generate checksums
-            ^
-            |
-    write the file to the disk and save metadata to db
-            ^
-            |
-    if any of the above process fails, everything is reversed
-            ^
-            |
-    send the client confirmation
+                        user uploads file 
+                                ^
+                                |
+                        my read bytes in chunks and create a file-like object
+                                ^
+                                |
+                        the backend/ service takes in the file like object to manipulate and check
+                                ^
+                                |
+                        check the mime type and assign an extension 
+                                ^
+                                |
+                        check the size, generate checksums and write the file to the disk as the simulteneously
+                                ^
+                                |
+                        if the process above succeeds, the metadata will be saved to the db
+                                ^
+                                |
+                        when the latter process fails, the writen file will be deleted and everything will be undone.
+                                ^
+                                |
+                        ultimately send the client confirmation
 
-Each process depends on the other one, the second depends on the first, and ellipsis
+Each process depends on the other one, the second depends on the first, and ...
 
 File size validation, checksum and writing to disk:
         Size validation:
@@ -68,8 +65,6 @@ File size validation, checksum and writing to disk:
                 When the total chunks size surpasses the allowed file, the file is rejected
                 
         
-
-
 
 
 
