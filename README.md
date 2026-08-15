@@ -14,10 +14,11 @@ Filesystem:
 File size Restriction:
         Allowed file size: 50MBs.
 
-Allowed content types or MIME types: text/plain
-                                     application/pdf
-                                     image/png":".png
-                                     video/x-matroska
+Allowed content types or MIME types(only for building and testing): 
+        text/plain
+        application/pdf
+        image/png
+        video/x-matroska
 
 How I Created the MIME type list:
 I used lib-magic which helps me to identify the mime types by, passing a file and printing its mime type. Then isolating the mime type in the dictionary ALLOWED_MIME_TYPES.
