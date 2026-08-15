@@ -4,6 +4,7 @@ Description(shrinked):
 
 Full Description:
         User uploads file, after the app has finished streaming the file. It is presented in the backend as file-like object. I check the mime-type by generating the file's mime-type. Checking the file's by using the mime-type to get the extension. Extensions are stored as values in a key-value (mime-type - extension) where, the key is the mime-type while the value is the latter. So I try to retrieve the extension, from the k-v pair. If I get the extension that means the, mime-type is valid. Else the opposite. If valid, I go ahead to size validation, checksum and writing to the disk. File is read in chunks, while I keep read of total read bytes.If the total bytes are greater than the maximum allowed file size, an error is raise and the partially broken written bytes are erased automatically. Else the program continues, checksum is generated simulteneously. As the chunk are validated, and written onto the disk. The rest are now collection of metadata. This is the first part of the system. File storage and metadata storage.
+        The last part of this document contain flowchart-like structure to explain the workflow.
 
 
 
