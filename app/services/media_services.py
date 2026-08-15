@@ -23,8 +23,8 @@ async def validate_file(file: UploadFile):
     await file.seek(0)
     mime_type_descriptor= magic.Magic(mime=True)
     mime_type = mime_type_descriptor.from_buffer(magic_numbers)
+
     extension = ALLOWED_MIME_TYPES.get(mime_type)
-    print(mime_type)
     if not extension:
         raise MimeTypeNotAllowedError(f"MIME type not allow; Presented MIME type {mime_type}; [{", ".join(ALLOWED_MIME_TYPES.keys())}]")
     
@@ -48,17 +48,14 @@ async def validate_file(file: UploadFile):
 
                 sha512.update(chunk)
     except Exception as e:
-        print(e)
-        raise e
-    finally:
         if new_filename.exists():
             new_filename.unlink()
-            print(f"{new_filename} cleaned up!")
-        await  file.close()
+        print(f"{new_filename} cleaned up!")
+        raise e
+    finally:
+        await file.close()
 
-
-
-        sha512.hexdigest()
+        return sha512.hexdigest()
 
     
 
