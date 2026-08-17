@@ -17,7 +17,7 @@ async def validate_file(file: UploadFile):
     }
 
     # MIME type extraction, validation and extension assignment
-    
+
 
     magic_numbers = await file.read(2048)
     await file.seek(0)
