@@ -20,7 +20,7 @@ import asyncio
 from fastapi.responses import StreamingResponse
 async def text_generatot():
     for i in range(1000):
-        yield f"Chunk {i} \n"
+        yield f"Chunk {i} \r"
         await asyncio.sleep(0.5)
     
 
@@ -32,6 +32,17 @@ async def stream_data():
         media_type="text/plain"
     )
 
+import json
+
+async def json_generator():
+    for i in range(10000):
+        data = {"event_id": i, "status": "processing"}
+        yield json.dumps(data) + "\r"
+        await asyncio.sleep(1)
+
+@media_router.get("/stream-json")
+async def stream_json():
+    return StreamingResponse(json_generator(), media_type="application/x-ndjson")
 
 
 
