@@ -56,9 +56,18 @@ async def validate_file(file: UploadFile):
     finally:
         await file.close()
 
-        return sha512.hexdigest()
+    return {
+           "owner_id": uuid4(),
+            "generated_filename": unique_filename,
+            "original_filename": old_filename,
+            "Path": str(filename),
+            "checksum": sha512.hexdigest(),
+            "mime_type": mime_type,
+            "size": total_byte_read,
+            "status": "uploaded",
+        
+                }
 
-  
 
 
    

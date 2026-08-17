@@ -9,33 +9,30 @@ media_router = APIRouter(tags=["Uploads"])
 @media_router.post("/medias")
 async def upload_file(file: UploadFile = File()):
     try:
-        await validate_file(file)
+        return await validate_file(file)
     except MediaExceptions as e:
         raise HTTPException(
             status_code =status.HTTP_400_BAD_REQUEST,
             detail=str(e)
         )
-    return {"size":"valid"}
+  
+import asyncio 
+from fastapi.responses import StreamingResponse
+async def text_generatot():
+    for i in range(1000):
+        yield f"Chunk {i} \n"
+        await asyncio.sleep(0.5)
+    
 
-@media_router.get("/medias/{filename}")
-async def stream_file(filename):
-    STORAGE_DIR = Path("uploads")
-    file_path = STORAGE_DIR / f"{filename}"
-    print(file_path)
-    # created an iterator that yields chunks of bytes
-    def iterator(file_path, chunk_size=1024 ):
-        with open(file_path, "rb") as f:
-            while chunk:= f.read(chunk_size):
-                yield chunk
-    headers = {
-        "Content-Disposition": f'inline; filename="{file_path}"',
-        "Accept-Ranges": "bytes"
-    }
+
+@media_router.get("/medias/v1")
+async def stream_data():
     return StreamingResponse(
-        content=iterator(file_path),
-        media_type="image/jpg",
-        headers=headers
+        content=text_generatot(),
+        media_type="text/plain"
     )
+
+
 
 
 
