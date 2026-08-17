@@ -45,7 +45,16 @@ async def stream_json():
     return StreamingResponse(json_generator(), media_type="application/x-ndjson")
 
 
+def file_chunk_generator(file_path: str):
+    with open(file_path, "rb") as file_chunk:
+        while chunk := file_chunk.read(8192):
+            yield chunk
 
+@media_router.get("/download")
+def download_large_file():
+    file_path = "huge_dataset.zip"
+    headers =  {"Content-Disposition": 'attachment; filename = "huge_dataset.zip"'}
+    return StreamingResponse(file_chunk_generator(file_path), headers=headers, media_type="application/zip")
 
  
 # @media_router.get("/medias/v1")
