@@ -6,7 +6,7 @@ from app.services.media_services import validate_file
 from app.exceptions.media_exceptions import MediaExceptions
 media_router = APIRouter(tags=["Uploads"])
 
-@media_router.post("/medias")
+@media_router.post("/media")
 async def upload_file(file: UploadFile = File()):
     try:
         return await validate_file(file)

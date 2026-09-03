@@ -8,6 +8,10 @@ from uuid import uuid4
 from app.exceptions.media_exceptions import FileSizeTooLargeError, MimeTypeNotAllowedError
 
 async def validate_file(file: UploadFile):
+    """ 
+    Reads files in chunk and save it locally
+    Only files in the ALLOWED_MIME_TYPES will be valide
+        """
     ALLOWED_MIME_TYPES ={
         "text/plain":".txt",
         "application/pdf":".pdf",
